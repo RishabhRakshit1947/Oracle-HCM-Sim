@@ -3,106 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulation HCM - Login</title>
+    <title>SimpliCore HCM - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
         }
+        
         .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            margin: 2rem;
             opacity: 0;
-            animation: fadeIn 0.8s ease-in-out forwards;
+            animation: fadeIn 0.8s ease-out forwards;
         }
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .input-field:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
         }
-        .login-btn {
-            transition: all 0.2s ease;
+        
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
         }
-        .login-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px rgba(220, 38, 38, 0.2);
+        
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #f80000;
+            border-radius: 2px;
         }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #f80000;
+            box-shadow: 0 0 0 3px rgba(248, 0, 0, 0.1);
+        }
+        
+        .sign-in-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background-color: #f80000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .sign-in-btn:hover {
+            background-color: #d90000;
+        }
+        
+        .sign-in-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .help-text {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .help-text a {
+            color: #f80000;
+            text-decoration: none;
+        }
+        
+        .help-text a:hover {
+            text-decoration: underline;
+        }
+        
         .error-message {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
+            background-color: #fff2f2;
+            border-left: 4px solid #f80000;
+            color: #d30000;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: none;
         }
-        .error-message.show {
-            max-height: 60px;
-            padding: 0.5rem;
-        }
+        
         .success-message {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
+            background-color: #f0fff4;
+            border-left: 4px solid #38a169;
+            color: #276749;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: none;
         }
-        .success-message.show {
-            max-height: 60px;
-            padding: 0.5rem;
+        
+        footer {
+            margin-top: 2rem;
+            color: #777;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1rem;
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center">
-    <div class="login-container w-full max-w-md p-8 mx-auto my-10 bg-white rounded-lg shadow-lg">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Simulation HCM</h1>
-            <p class="text-gray-500 mt-2">Enterprise Resource Management</p>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <h1 class="logo-text">SimpliCore HCM</h1>
         </div>
         
-        <form id="loginForm" class="space-y-6">
-            <div>
-                <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-                <input type="text" id="username" name="username" 
-                    class="input-field w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none"
-                    placeholder="Enter your username">
+        <div class="error-message" id="error-message">
+            Invalid username or password.
+        </div>
+        
+        <div class="success-message" id="success-message">
+            Welcome, Rishabh. Redirecting to dashboard...
+        </div>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="username" required>
             </div>
             
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input type="password" id="password" name="password" 
-                    class="input-field w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none"
-                    placeholder="Enter your password">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
             </div>
             
-            <div class="error-message bg-red-100 text-red-700 rounded-md text-sm" id="errorMessage">
-                Invalid username or password.
-            </div>
-            
-            <div class="success-message bg-green-100 text-green-700 rounded-md text-sm" id="successMessage">
-                Redirecting to dashboard...
-            </div>
-            
-            <div>
-                <button type="submit" 
-                    class="login-btn w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                    Sign In
-                </button>
-            </div>
+            <button type="submit" class="sign-in-btn">Sign In</button>
         </form>
         
-        <div class="mt-6 text-center text-sm text-gray-500">
-            Need help? Contact <a href="mailto:admin@simulationhcm.com" class="text-blue-600 hover:underline">admin@simulationhcm.com</a>
+        <div class="help-text">
+            Need help? Contact <a href="mailto:support@simplicore.com">support@simplicore.com</a>
         </div>
     </div>
     
-    <footer class="w-full text-center text-gray-500 text-sm py-4">
-        © 2025 Simulation HCM. All rights reserved.
+    <footer>
+        © 2025 SimpliCore HCM. All rights reserved.
     </footer>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('loginForm');
-            const errorMessage = document.getElementById('errorMessage');
-            const successMessage = document.getElementById('successMessage');
+            const loginForm = document.getElementById('login-form');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
             
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -111,30 +215,24 @@
                 const password = document.getElementById('password').value;
                 
                 // Hide any existing messages
-                errorMessage.classList.remove('show');
-                successMessage.classList.remove('show');
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
                 
                 // Check credentials
                 if (username === 'rishabh' && password === 'oracle123') {
                     // Success
-                    successMessage.classList.add('show');
+                    successMessage.style.display = 'block';
                     
                     // Simulate redirect after 2 seconds
                     setTimeout(() => {
                         alert('Login successful! In a real application, you would be redirected to the dashboard.');
-                        successMessage.classList.remove('show');
                     }, 2000);
                 } else {
                     // Error
-                    errorMessage.classList.add('show');
-                    
-                    // Auto-hide error after 3 seconds
-                    setTimeout(() => {
-                        errorMessage.classList.remove('show');
-                    }, 3000);
+                    errorMessage.style.display = 'block';
                 }
             });
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'968cd7bb103dd7fb',t:'MTc1NDEzMDAyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'968cdd7002e2d7fb',t:'MTc1NDEzMDI2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
