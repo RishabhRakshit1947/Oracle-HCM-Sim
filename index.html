@@ -1342,7 +1342,7 @@
         
         <!-- Sidebar Navigation -->
         <div class="sidebar">
-            <div class="menu-item" data-page="dashboard">
+            <div class="menu-item active" data-page="dashboard">
                 <div class="menu-icon"><i class="fas fa-tachometer-alt"></i></div>
                 <div class="menu-text">Dashboard</div>
             </div>
@@ -1350,7 +1350,7 @@
                 <div class="menu-icon"><i class="fas fa-user"></i></div>
                 <div class="menu-text">Personal Information</div>
             </div>
-            <div class="menu-item active" data-page="contact-info">
+            <div class="menu-item" data-page="contact-info">
                 <div class="menu-icon"><i class="fas fa-address-book"></i></div>
                 <div class="menu-text">Contact Information</div>
             </div>
@@ -2017,7 +2017,7 @@
             if (isValid) {
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('dashboardPage').style.display = 'flex';
-                showPage('contactInfoContent'); // Show contact info page by default
+                showPage('dashboardContent'); // Show dashboard page by default
             }
         });
         
@@ -2064,9 +2064,9 @@
             });
         }
         
-        // Initialize contact info as the first visible page
+        // Initialize dashboard as the first visible page
         window.addEventListener('DOMContentLoaded', function() {
-            showPage('contactInfoContent');
+            showPage('dashboardContent');
         });
         
         // Sidebar navigation - ensure all menu items work correctly
@@ -2223,5 +2223,10 @@
             });
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'968d1bda67793f6d',t:'MTc1NDEzMjgxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'968d338be4a0837d',t:'MTc1NDEzMzc4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
+<div class="menu-item active" data-page="dashboard">
+    <div class="menu-icon"><i class="fas fa-tachometer-alt"></i></div>
+    <div class="menu-text">Dashboard</div>
+</div>
