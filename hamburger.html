@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manticore HCM Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: flex-start;
+      align-items: stretch;
+      z-index: 999;
+    }
+
+    .menu-panel {
+      background-color: #ffffff;
+      width: 360px;
+      max-width: 90vw;
+      padding: 20px;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .menu-header h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .module {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .module h3 {
+      font-size: 16px;
+      margin: 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sub-items {
+      display: none;
+      margin-top: 10px;
+      padding-left: 10px;
+    }
+
+    .sub-items a {
+      display: block;
+      text-decoration: none;
+      color: #444;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .module.open .sub-items {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="menuOverlay">
+    <div class="menu-panel">
+      <div class="menu-header">
+        <h2>Menu</h2>
+        <button class="close-btn" onclick="closeMenu()">&times;</button>
+      </div>
+
+      <div class="module" onclick="toggleModule(this)">
+        <h3>Procurement <span>˅</span></h3>
+        <div class="sub-items">
+          <a href="#">Purchase Orders</a>
+          <a href="#">Suppliers</a>
+        </div>
+      </div>
+
+      <div class="module" onclick="toggleModule(this)">
+        <h3>My Client Groups <span>˅</span></h3>
+        <div class="sub-items">
+          <a href="#">My Team</a>
+          <a href="#">Team Performance</a>
+        </div>
+      </div>
+
+      <div class="module" onclick="toggleModule(this)">
+        <h3>Help Desk <span>˅</span></h3>
+        <div class="sub-items">
+          <a href="#">Raise Ticket</a>
+          <a href="#">View Cases</a>
+        </div>
+      </div>
+
+      <div class="module" onclick="toggleModule(this)">
+        <h3>Benefits Administration <span>˅</span></h3>
+        <div class="sub-items">
+          <a href="#">Enroll</a>
+          <a href="#">Claims</a>
+        </div>
+      </div>
+
+      <div class="module" onclick="toggleModule(this)">
+        <h3>General Accounting <span>˅</span></h3>
+        <div class="sub-items">
+          <a href="#">Journal Entries</a>
+          <a href="#">Reports</a>
+        </div>
+      </div>
+
+      <!-- Add more modules similarly -->
+    </div>
+  </div>
+
+  <script>
+    function closeMenu() {
+      window.location.href = 'dashboard.html';
+    }
+
+    function toggleModule(element) {
+      element.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
