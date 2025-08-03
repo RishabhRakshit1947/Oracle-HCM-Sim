@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimpliCore HCM - Employee Self-Service</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Manticore HCM - Enterprise Cloud Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -24,58 +24,79 @@
             --text-dark: #333333;
             --text-medium: #555555;
             --text-light: #777777;
+            --manticore-dark: #2c2724;
+            --manticore-teal: #1d5c63;
+            --manticore-teal-light: #2a6d70;
+            --link-blue: #0077cc;
         }
         
         body {
-            background-color: #ffffff;
+            background-color: var(--light-bg);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
         
-        /* Login Page Styles */
-        .login-container {
+        /* Manticore Login Page Styles */
+        .manticore-login-container {
             display: flex;
-            flex: 1;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .manticore-banner {
+            background-color: var(--manticore-dark);
+            height: 35vh;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
-            background-color: var(--light-bg);
+            position: relative;
         }
         
-        .login-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            max-width: 420px;
-            padding: 40px;
+        .manticore-banner-content {
+            margin-left: 40px;
         }
         
-        .branding {
-            text-align: center;
-            margin-bottom: 32px;
+        .manticore-sign-in-text {
+            color: white;
+            font-size: 20px;
+            font-weight: normal;
+            margin-bottom: 5px;
         }
         
-        .logo {
+        .manticore-app-name {
+            color: white;
             font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 4px;
-            letter-spacing: -0.5px;
+            font-weight: bold;
         }
         
-        .subtitle {
-            font-size: 14px;
-            color: var(--text-light);
-            font-weight: 400;
+        .manticore-accent-bar {
+            height: 5px;
+            background-color: #e4e4e4;
+            width: 100%;
         }
         
-        .form-group {
-            margin-bottom: 24px;
+        .manticore-login-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
         }
         
-        .form-group label {
+        .manticore-login-box {
+            background-color: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 32px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .manticore-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .manticore-form-group label {
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
@@ -83,116 +104,107 @@
             font-weight: 600;
         }
         
-        .input-container {
-            position: relative;
-        }
-        
-        .input-container input {
+        .manticore-form-group input {
             width: 100%;
-            padding: 12px 16px;
-            padding-left: 40px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
+            padding: 10px;
+            border: 1.5px solid #333;
             font-size: 15px;
-            transition: all 0.2s;
         }
         
-        .input-container input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(248, 0, 0, 0.1);
+        .manticore-forgot-password {
+            margin-bottom: 20px;
         }
         
-        .input-container .icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light);
-            font-size: 16px;
-        }
-        
-        .remember-me {
-            display: flex;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        
-        .remember-me input {
-            margin-right: 8px;
-            width: 16px;
-            height: 16px;
-            accent-color: var(--primary-color);
-        }
-        
-        .remember-me label {
+        .manticore-forgot-password a {
+            color: var(--link-blue);
+            text-decoration: none;
             font-size: 14px;
-            color: var(--text-medium);
         }
         
-        .login-button {
-            background-color: var(--primary-color);
+        .manticore-forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .manticore-login-button {
+            background-color: var(--manticore-dark);
             color: white;
             border: none;
-            border-radius: 6px;
-            padding: 14px;
+            border-radius: 0;
+            padding: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.2s;
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         
-        .login-button:hover {
-            background-color: var(--primary-hover);
+        .manticore-login-button:hover {
+            background-color: #3a3430;
         }
         
-        .forgot-password {
-            text-align: right;
-            font-size: 13px;
+        .manticore-language-selector {
+            margin-bottom: 20px;
         }
         
-        .forgot-password a {
-            color: var(--primary-color);
-            text-decoration: none;
+        .manticore-language-selector label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 600;
         }
         
-        .forgot-password a:hover {
-            text-decoration: underline;
+        .manticore-language-selector select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
         }
         
-        .footer {
-            text-align: center;
+        .manticore-footer {
             padding: 20px;
-            font-size: 12px;
-            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        /* Form validation */
-        .error-message {
+        .manticore-copyright {
+            font-size: 12px;
+            color: #555555;
+        }
+        
+        .manticore-logo {
+            font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #333;
+        }
+        
+        /* Error messages */
+        .manticore-error-message {
             color: #e53935;
             font-size: 12px;
             margin-top: 6px;
             display: none;
         }
         
-        input.error {
+        input.manticore-error {
             border-color: #e53935;
         }
         
-        /* Dashboard Styles */
+        /* New Manticore HCM Dashboard Styles */
         .dashboard-container {
             display: none;
             flex-direction: column;
             min-height: 100vh;
         }
         
-        /* Top Navigation Bar */
+        /* 1. Top Navigation Bar */
         .top-navbar {
             height: 60px;
-            background-color: white;
-            border-bottom: 1px solid var(--border-color);
+            background-color: var(--manticore-dark);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -202,6 +214,7 @@
             left: 0;
             right: 0;
             z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
         .brand {
@@ -209,10 +222,19 @@
             align-items: center;
         }
         
+        .hamburger-menu {
+            color: white;
+            font-size: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        
         .brand-name {
             font-size: 20px;
             font-weight: 700;
-            color: var(--primary-color);
+            color: white;
+            letter-spacing: 2px;
+            font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
         }
         
         .nav-actions {
@@ -226,17 +248,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-medium);
+            color: white;
             font-size: 18px;
             cursor: pointer;
-            border-radius: 50%;
-            margin-left: 8px;
+            margin-left: 16px;
             transition: background-color 0.2s;
             position: relative;
         }
         
         .nav-icon:hover {
-            background-color: var(--light-bg);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
         }
         
         .notification-badge {
@@ -259,8 +281,6 @@
             display: flex;
             align-items: center;
             margin-left: 16px;
-            padding-left: 16px;
-            border-left: 1px solid var(--border-color);
             cursor: pointer;
             position: relative;
         }
@@ -275,67 +295,186 @@
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            margin-right: 12px;
+            border: 2px solid white;
+            position: relative;
         }
         
-        .user-info {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .user-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        
-        .user-id {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-        
-        .user-dropdown {
+        .status-indicator {
             position: absolute;
-            top: 50px;
+            bottom: 0;
             right: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            border: 2px solid var(--manticore-dark);
+        }
+        
+        /* 2. Greeting Section */
+        .greeting-banner {
+            background-color: var(--manticore-teal);
+            padding: 50px 40px 0;
+            margin-top: 60px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .greeting-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        /* 3. Horizontal Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        .tab-navigation::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            cursor: pointer;
+            white-space: nowrap;
+            position: relative;
+            transition: color 0.2s;
+        }
+        
+        .tab.active {
+            color: white;
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            right: 20px;
+            height: 3px;
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            width: 200px;
-            z-index: 110;
-            display: none;
         }
         
-        .user-dropdown.active {
-            display: block;
-        }
-        
-        .dropdown-item {
-            padding: 12px 16px;
-            font-size: 14px;
-            color: var(--text-dark);
+        .tab-scroll {
+            padding: 10px;
+            color: rgba(255, 255, 255, 0.7);
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: center;
         }
         
-        .dropdown-item:hover {
-            background-color: var(--light-bg);
+        /* 4. Main Dashboard Content Area */
+        .dashboard-content {
+            display: flex;
+            padding: 30px 20px;
+            background-color: #f5f5f5;
         }
         
-        .dropdown-item i {
-            margin-right: 10px;
-            width: 16px;
+        /* 4A. Quick Actions Column */
+        .quick-actions-column {
+            width: 30%;
+            padding-right: 20px;
+        }
+        
+        .column-title {
+            font-size: 13px;
+            font-weight: 600;
             color: var(--text-medium);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .dropdown-divider {
-            height: 1px;
-            background-color: var(--light-bg);
-            margin: 4px 0;
+        .quick-action-list {
+            list-style: none;
         }
         
-        /* Notifications dropdown */
+        .quick-action-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        
+        .quick-action-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .quick-action-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: var(--manticore-teal);
+            font-size: 16px;
+        }
+        
+        .quick-action-text {
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+        
+        /* 4B. Apps Section */
+        .apps-column {
+            width: 70%;
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .app-card {
+            background-color: var(--manticore-teal-light);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .app-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+        }
+        
+        /* Notifications Dropdown */
         .notifications-dropdown {
             position: absolute;
             top: 50px;
@@ -403,24 +542,24 @@
             color: var(--text-medium);
         }
         
-        /* Help dropdown */
-        .help-dropdown {
+        /* User Dropdown */
+        .user-dropdown {
             position: absolute;
             top: 50px;
             right: 0;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            width: 250px;
+            width: 200px;
             z-index: 110;
             display: none;
         }
         
-        .help-dropdown.active {
+        .user-dropdown.active {
             display: block;
         }
         
-        .help-item {
+        .dropdown-item {
             padding: 12px 16px;
             font-size: 14px;
             color: var(--text-dark);
@@ -429,64 +568,27 @@
             align-items: center;
         }
         
-        .help-item:hover {
+        .dropdown-item:hover {
             background-color: var(--light-bg);
         }
         
-        .help-item i {
+        .dropdown-item i {
             margin-right: 10px;
             width: 16px;
-            color: var(--primary-color);
-        }
-        
-        /* Sidebar Navigation */
-        .sidebar {
-            width: 220px;
-            background-color: #f4f4f4;
-            border-right: 1px solid var(--border-color);
-            position: fixed;
-            top: 60px;
-            left: 0;
-            bottom: 0;
-            padding-top: 20px;
-            overflow-y: auto;
-            z-index: 90;
-        }
-        
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
             color: var(--text-medium);
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
         }
         
-        .menu-item:hover {
-            background-color: #e8e8e8;
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--light-bg);
+            margin: 4px 0;
         }
         
-        .menu-item.active {
-            color: var(--primary-color);
-            font-weight: 600;
-            background-color: rgba(248, 0, 0, 0.05);
-            border-left-color: var(--primary-color);
-        }
-        
-        .menu-icon {
-            width: 24px;
-            margin-right: 12px;
-            text-align: center;
-        }
-        
-        /* Main Content */
-        .main-content {
-            margin-left: 220px;
-            margin-top: 60px;
+        /* Content Pages */
+        .content-page {
+            display: none;
             padding: 30px;
-            flex: 1;
+            margin-top: 60px;
         }
         
         .page-title {
@@ -502,162 +604,7 @@
             margin-bottom: 24px;
         }
         
-        .welcome-banner {
-            background-color: var(--light-bg);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .welcome-message h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-        
-        .welcome-message p {
-            font-size: 14px;
-            color: var(--text-medium);
-        }
-        
-        .date-display {
-            font-size: 14px;
-            color: var(--text-medium);
-            text-align: right;
-        }
-        
-        /* Dashboard Cards Grid */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .dashboard-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid var(--border-color);
-        }
-        
-        .dashboard-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .card-highlight {
-            border-left: 4px solid var(--primary-color);
-        }
-        
-        .card-icon {
-            width: 48px;
-            height: 48px;
-            background-color: var(--light-bg);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            color: var(--primary-color);
-            font-size: 20px;
-        }
-        
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
-        
-        .card-status {
-            font-size: 13px;
-            color: var(--text-light);
-        }
-        
-        /* Notifications Section */
-        .notifications-section {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-title i {
-            margin-right: 8px;
-            color: var(--primary-color);
-        }
-        
-        .notification-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--light-bg);
-        }
-        
-        .notification-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        
-        .notification-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--light-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            color: var(--primary-color);
-            font-size: 14px;
-        }
-        
-        .notification-content {
-            flex: 1;
-        }
-        
-        .notification-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-        
-        .notification-text {
-            font-size: 13px;
-            color: var(--text-medium);
-        }
-        
-        .notification-time {
-            font-size: 12px;
-            color: #999;
-            white-space: nowrap;
-            margin-left: 12px;
-        }
-        
         /* Contact Info Page */
-        .content-page {
-            display: none;
-        }
-        
         .content-header {
             display: flex;
             justify-content: space-between;
@@ -703,7 +650,7 @@
         }
         
         .info-card {
-            background-color: var(--light-bg);
+            background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             padding: 24px;
@@ -1115,20 +1062,22 @@
         
         /* Responsive */
         @media (max-width: 992px) {
-            .sidebar {
-                width: 70px;
+            .dashboard-content {
+                flex-direction: column;
             }
             
-            .menu-text {
-                display: none;
+            .quick-actions-column {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 30px;
             }
             
-            .menu-icon {
-                margin-right: 0;
+            .apps-column {
+                width: 100%;
             }
             
-            .main-content {
-                margin-left: 70px;
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .personal-info-grid {
@@ -1137,12 +1086,12 @@
         }
         
         @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
+            .greeting-text {
+                font-size: 24px;
             }
             
-            .user-info {
-                display: none;
+            .apps-grid {
+                grid-template-columns: 1fr;
             }
             
             .welcome-banner {
@@ -1167,10 +1116,20 @@
             .oracle-label {
                 margin-bottom: 8px;
             }
+            
+            .manticore-banner {
+                height: 25vh;
+            }
+            
+            .manticore-footer {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
         }
         
         @media (max-width: 480px) {
-            .login-card {
+            .manticore-login-box {
                 padding: 30px 20px;
             }
             
@@ -1179,12 +1138,20 @@
             }
             
             .nav-icon {
-                width: 36px;
-                height: 36px;
+                margin-left: 8px;
             }
             
-            .main-content {
-                padding: 20px 15px;
+            .brand-name {
+                font-size: 16px;
+            }
+            
+            .greeting-text {
+                font-size: 20px;
+            }
+            
+            .tab {
+                padding: 10px 15px;
+                font-size: 14px;
             }
             
             .info-row {
@@ -1195,48 +1162,62 @@
                 width: 100%;
                 margin-bottom: 4px;
             }
+            
+            .manticore-banner-content {
+                margin-left: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div class="login-container" id="loginPage">
-        <div class="login-card">
-            <div class="branding">
-                <div class="logo">SimpliCore HCM</div>
-                <div class="subtitle">Human Capital Management</div>
+    <!-- Manticore Login Page -->
+    <div class="manticore-login-container" id="loginPage">
+        <div class="manticore-banner">
+            <div class="manticore-banner-content">
+                <div class="manticore-sign-in-text">Sign In</div>
+                <div class="manticore-app-name">Manticore Applications Cloud</div>
             </div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">User ID or Email</label>
-                    <div class="input-container">
-                        <i class="fas fa-user icon"></i>
-                        <input type="text" id="username" placeholder="Enter your user ID or email">
+        </div>
+        <div class="manticore-accent-bar"></div>
+        
+        <div class="manticore-login-content">
+            <div class="manticore-login-box">
+                <form id="loginForm">
+                    <div class="manticore-form-group">
+                        <label for="username">User ID</label>
+                        <input type="text" id="username" placeholder="User ID">
+                        <div class="manticore-error-message" id="usernameError">Please enter your user ID</div>
                     </div>
-                    <div class="error-message" id="usernameError">Please enter your user ID or email</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="input-container">
-                        <i class="fas fa-lock icon"></i>
-                        <input type="password" id="password" placeholder="Enter your password">
+                    
+                    <div class="manticore-form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Password">
+                        <div class="manticore-error-message" id="passwordError">Please enter your password</div>
                     </div>
-                    <div class="error-message" id="passwordError">Please enter your password</div>
-                </div>
-                
-                <div class="remember-me">
-                    <input type="checkbox" id="remember">
-                    <label for="remember">Remember Me</label>
-                </div>
-                
-                <button type="submit" class="login-button">Sign In</button>
-                
-                <div class="forgot-password">
-                    <a href="#" id="forgotPasswordLink">Forgot Password?</a>
-                </div>
-            </form>
+                    
+                    <div class="manticore-forgot-password">
+                        <a href="#" id="forgotPasswordLink">Forgot Password</a>
+                    </div>
+                    
+                    <button type="submit" class="manticore-login-button">Sign In</button>
+                    
+                    <div class="manticore-language-selector">
+                        <label for="language">Select Language</label>
+                        <select id="language">
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="manticore-footer">
+            <div class="manticore-copyright">
+                Copyright(C) 2011, 2024, Manticore and/or its affiliates.
+            </div>
+            <div class="manticore-logo">
+                MANTICORE
+            </div>
         </div>
     </div>
     
@@ -1245,13 +1226,28 @@
         <!-- Top Navigation Bar -->
         <div class="top-navbar">
             <div class="brand">
-                <div class="brand-name">SimpliCore HCM</div>
+                <div class="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="brand-name">MANTICORE</div>
             </div>
             
             <div class="nav-actions">
+                <div class="nav-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-flag"></i>
+                </div>
                 <div class="nav-icon" id="notificationsIcon">
                     <i class="fas fa-bell"></i>
-                    <div class="notification-badge">2</div>
+                    <div class="notification-badge">1</div>
                     
                     <!-- Notifications Dropdown -->
                     <div class="notifications-dropdown" id="notificationsDropdown">
@@ -1289,36 +1285,9 @@
                     </div>
                 </div>
                 
-                <div class="nav-icon" id="helpIcon">
-                    <i class="fas fa-question-circle"></i>
-                    
-                    <!-- Help Dropdown -->
-                    <div class="help-dropdown" id="helpDropdown">
-                        <div class="help-item">
-                            <i class="fas fa-book"></i>
-                            <span>User Guide</span>
-                        </div>
-                        <div class="help-item">
-                            <i class="fas fa-headset"></i>
-                            <span>Contact Support</span>
-                        </div>
-                        <div class="help-item">
-                            <i class="fas fa-video"></i>
-                            <span>Video Tutorials</span>
-                        </div>
-                        <div class="help-item">
-                            <i class="fas fa-question-circle"></i>
-                            <span>FAQs</span>
-                        </div>
-                    </div>
-                </div>
-                
                 <div class="user-profile" id="userProfileIcon">
-                    <div class="avatar">RR</div>
-                    <div class="user-info">
-                        <div class="user-name">Rishabh R.</div>
-                        <div class="user-id">ID: 144203</div>
-                    </div>
+                    <div class="avatar" id="userAvatar">GL</div>
+                    <div class="status-indicator"></div>
                     
                     <!-- User Dropdown -->
                     <div class="user-dropdown" id="userDropdown">
@@ -1340,137 +1309,148 @@
             </div>
         </div>
         
-        <!-- Sidebar Navigation -->
-        <div class="sidebar">
-            <div class="menu-item active" data-page="dashboard">
-                <div class="menu-icon"><i class="fas fa-tachometer-alt"></i></div>
-                <div class="menu-text">Dashboard</div>
-            </div>
-            <div class="menu-item" data-page="personal-info">
-                <div class="menu-icon"><i class="fas fa-user"></i></div>
-                <div class="menu-text">Personal Information</div>
-            </div>
-            <div class="menu-item" data-page="contact-info">
-                <div class="menu-icon"><i class="fas fa-address-book"></i></div>
-                <div class="menu-text">Contact Information</div>
-            </div>
-            <div class="menu-item" data-page="payslips">
-                <div class="menu-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                <div class="menu-text">Salary Slips</div>
-            </div>
-            <div class="menu-item" data-page="org-chart">
-                <div class="menu-icon"><i class="fas fa-sitemap"></i></div>
-                <div class="menu-text">Organization Chart</div>
-            </div>
-            <div class="menu-item" data-page="leave-management">
-                <div class="menu-icon"><i class="fas fa-calendar-alt"></i></div>
-                <div class="menu-text">Leave Management</div>
-            </div>
-            <div class="menu-item" data-page="benefits">
-                <div class="menu-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                <div class="menu-text">Benefits & Compensation</div>
-            </div>
-            <div class="menu-item" id="logoutButton">
-                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
-                <div class="menu-text">Logout</div>
-            </div>
-        </div>
-        
-        <!-- Main Content - Dashboard -->
-        <div class="main-content content-page" id="dashboardContent">
-            <h1 class="page-title">Employee Self-Service Dashboard</h1>
-            <p class="page-subtitle">Access and manage your employee information</p>
+        <!-- Greeting Banner -->
+        <div class="greeting-banner">
+            <div class="greeting-text" id="greetingText">Good morning, Gabrielle Lee!</div>
             
-            <div class="welcome-banner">
-                <div class="welcome-message">
-                    <h2>Welcome back, Rishabh!</h2>
-                    <p>You have 2 pending notifications</p>
-                </div>
-                <div class="date-display" id="currentDate">
-                    Monday, 7 August, 2023
-                </div>
-            </div>
-            
-            <div class="dashboard-grid">
-                <div class="dashboard-card" id="personalInfoCard">
-                    <div class="card-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="card-title">Personal Information</div>
-                    <div class="card-status">Last updated: 15 Jul, 2023</div>
-                </div>
-                
-                <div class="dashboard-card card-highlight" id="contactInfoCard">
-                    <div class="card-icon">
-                        <i class="fas fa-address-book"></i>
-                    </div>
-                    <div class="card-title">Contact Information</div>
-                    <div class="card-status">Last updated: 2 Aug, 2023</div>
-                </div>
-                
-                <div class="dashboard-card" id="payslipsCard">
-                    <div class="card-icon">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                    </div>
-                    <div class="card-title">Salary Slips</div>
-                    <div class="card-status">New salary slip available</div>
-                </div>
-                
-                <div class="dashboard-card" id="leaveRequestsCard">
-                    <div class="card-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <div class="card-title">Leave Requests</div>
-                    <div class="card-status">Balance: 15 days</div>
-                </div>
-                
-                <div class="dashboard-card" id="myTeamCard">
-                    <div class="card-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="card-title">My Team</div>
-                    <div class="card-status">5 direct reports</div>
-                </div>
-                
-                <div class="dashboard-card" id="bankInfoCard">
-                    <div class="card-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="card-title">Update Bank Info</div>
-                    <div class="card-status">Last updated: 10 Jun, 2023</div>
-                </div>
-            </div>
-            
-            <div class="notifications-section">
-                <div class="section-title">
-                    <i class="fas fa-bell"></i> System Notifications
-                </div>
-                
-                <div class="notification-item">
-                    <div class="notification-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="notification-content">
-                        <div class="notification-title">Form 16 Available</div>
-                        <div class="notification-text">Your Form 16 tax document for FY 2022-23 is now available for download</div>
-                    </div>
-                    <div class="notification-time">2 days ago</div>
-                </div>
-                
-                <div class="notification-item">
-                    <div class="notification-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div class="notification-content">
-                        <div class="notification-title">Leave Balance Update</div>
-                        <div class="notification-text">Your next leave balance update will be on 31 August, 2023</div>
-                    </div>
-                    <div class="notification-time">1 week ago</div>
+            <!-- Horizontal Tab Navigation -->
+            <div class="tab-navigation">
+                <div class="tab active">Me</div>
+                <div class="tab">My Team</div>
+                <div class="tab">My Client Groups</div>
+                <div class="tab">Workspace</div>
+                <div class="tab">Partner Management</div>
+                <div class="tab">Sales</div>
+                <div class="tab-scroll">
+                    <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
         </div>
         
-        <!-- Oracle-Style Contact Information Page -->
+        <!-- Main Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Quick Actions Column -->
+            <div class="quick-actions-column">
+                <div class="column-title">Quick Actions</div>
+                
+                <ul class="quick-action-list">
+                    <li class="quick-action-item" data-page="personal-info">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="quick-action-text">Personal Details</div>
+                    </li>
+                    <li class="quick-action-item">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="quick-action-text">Document Records</div>
+                    </li>
+                    <li class="quick-action-item">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="quick-action-text">Identification Info</div>
+                    </li>
+                    <li class="quick-action-item" data-page="contact-info">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="quick-action-text">Contact Info</div>
+                    </li>
+                    <li class="quick-action-item">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="quick-action-text">Family and Emergency Contacts</div>
+                    </li>
+                    <li class="quick-action-item" data-page="org-chart">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <div class="quick-action-text">My Organization Chart</div>
+                    </li>
+                    <li class="quick-action-item">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="quick-action-text">My Public Info</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Apps Section -->
+            <div class="apps-column">
+                <div class="column-title">Apps</div>
+                
+                <div class="apps-grid">
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-address-book"></i>
+                        </div>
+                        <div class="app-title">Directory</div>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="app-title">Connections</div>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div class="app-title">Journeys</div>
+                    </div>
+                    
+                    <div class="app-card" id="payslipsCard">
+                        <div class="app-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="app-title">Pay</div>
+                    </div>
+                    
+                    <div class="app-card" id="leaveRequestsCard">
+                        <div class="app-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="app-title">Time and Absences</div>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="app-title">Career and Performance</div>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="app-title">Learning</div>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <div class="app-title">Feedback</div>
+                    </div>
+                    
+                    <div class="app-card" id="benefitsCard">
+                        <div class="app-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="app-title">Benefits</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact Information Page -->
         <div class="main-content content-page" id="contactInfoContent">
             <div class="success-message" id="contactUpdateSuccess">
                 <p><i class="fas fa-check-circle"></i> Your contact information has been successfully updated.</p>
@@ -1509,7 +1489,7 @@
                         <div class="oracle-label">
                             <i class="fas fa-envelope"></i> Email Address
                         </div>
-                        <div class="oracle-value read-only" id="emailDisplay">r.rakshit@simpli-core.in</div>
+                        <div class="oracle-value read-only" id="emailDisplay">g.lee@manticore.in</div>
                     </div>
                     
                     <div class="oracle-field">
@@ -1535,7 +1515,7 @@
                     
                     <div class="form-row">
                         <label for="email">Email Address (Read-only)</label>
-                        <input type="email" id="email" value="r.rakshit@simpli-core.in" disabled style="background-color: #f5f5f5;">
+                        <input type="email" id="email" value="g.lee@manticore.in" disabled style="background-color: #f5f5f5;">
                     </div>
                     
                     <div class="form-row">
@@ -1667,7 +1647,7 @@
                     
                     <div class="info-row">
                         <div class="info-label"><i class="fas fa-user"></i> Full Name</div>
-                        <div class="info-value">Rishabh Rakshit</div>
+                        <div class="info-value" id="fullNameDisplay">Gabrielle Lee</div>
                     </div>
                     
                     <div class="info-row">
@@ -1682,7 +1662,7 @@
                     
                     <div class="info-row">
                         <div class="info-label"><i class="fas fa-venus-mars"></i> Gender</div>
-                        <div class="info-value">Male</div>
+                        <div class="info-value">Female</div>
                     </div>
                     
                     <div class="info-row">
@@ -1871,15 +1851,15 @@
                     <div class="org-card">
                         <div class="org-name">Samantha Chen</div>
                         <div class="org-title">HR Director</div>
-                        <div class="org-email">s.chen@simpli-core.in</div>
+                        <div class="org-email">s.chen@manticore.in</div>
                     </div>
                 </div>
                 
                 <div class="org-level">
                     <div class="org-card">
-                        <div class="org-name">Rishabh Rakshit</div>
+                        <div class="org-name" id="orgChartName">Gabrielle Lee</div>
                         <div class="org-title">HR Manager</div>
-                        <div class="org-email">r.rakshit@simpli-core.in</div>
+                        <div class="org-email" id="orgChartEmail">g.lee@manticore.in</div>
                     </div>
                 </div>
                 
@@ -1888,26 +1868,26 @@
                         <div class="org-card">
                             <div class="org-name">Amit Sharma</div>
                             <div class="org-title">HR Specialist</div>
-                            <div class="org-email">a.sharma@simpli-core.in</div>
+                            <div class="org-email">a.sharma@manticore.in</div>
                         </div>
                         
                         <div class="org-card">
                             <div class="org-name">Priya Patel</div>
                             <div class="org-title">Recruiter</div>
-                            <div class="org-email">p.patel@simpli-core.in</div>
+                            <div class="org-email">p.patel@manticore.in</div>
                         </div>
                         
                         <div class="org-card">
                             <div class="org-name">Rahul Gupta</div>
                             <div class="org-title">Benefits Coordinator</div>
-                            <div class="org-email">r.gupta@simpli-core.in</div>
+                            <div class="org-email">r.gupta@manticore.in</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Benefits & Compensation Page -->
+        <!-- Benefits Page -->
         <div class="main-content content-page" id="benefitsContent">
             <div class="content-header">
                 <button class="back-button" id="backToDashboardFromBenefits">
@@ -1976,15 +1956,14 @@
         </div>
     </div>
     
-    <div class="footer">
-        <p>© 2023 SimpliCore HCM. All rights reserved.</p>
-    </div>
-    
     <script>
-        // Display current date in Indian format
-        const today = new Date();
-        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        document.getElementById('currentDate').textContent = today.toLocaleDateString('en-IN', options);
+        // Get current time for greeting
+        function getGreeting() {
+            const hour = new Date().getHours();
+            if (hour < 12) return "Good morning";
+            if (hour < 18) return "Good afternoon";
+            return "Good evening";
+        }
         
         // Login form validation
         document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -1997,27 +1976,50 @@
             // Simple validation
             if (!username) {
                 document.getElementById('usernameError').style.display = 'block';
-                document.getElementById('username').classList.add('error');
+                document.getElementById('username').classList.add('manticore-error');
                 isValid = false;
             } else {
                 document.getElementById('usernameError').style.display = 'none';
-                document.getElementById('username').classList.remove('error');
+                document.getElementById('username').classList.remove('manticore-error');
             }
             
             if (!password) {
                 document.getElementById('passwordError').style.display = 'block';
-                document.getElementById('password').classList.add('error');
+                document.getElementById('password').classList.add('manticore-error');
                 isValid = false;
             } else {
                 document.getElementById('passwordError').style.display = 'none';
-                document.getElementById('password').classList.remove('error');
+                document.getElementById('password').classList.remove('manticore-error');
             }
             
             // If valid, show dashboard
             if (isValid) {
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('dashboardPage').style.display = 'flex';
-                showPage('dashboardContent'); // Show dashboard page by default
+                
+                // Update user name throughout the application
+                const userName = username;
+                const greeting = getGreeting();
+                
+                // Update greeting
+                document.getElementById('greetingText').textContent = `${greeting}, ${userName}!`;
+                
+                // Update avatar initials
+                const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+                document.getElementById('userAvatar').textContent = initials;
+                
+                // Update personal info
+                document.getElementById('fullNameDisplay').textContent = userName;
+                
+                // Update email with username-based email
+                const emailPrefix = userName.toLowerCase().replace(/\s+/g, '.').replace(/[^a-z0-9.]/g, '');
+                const email = `${emailPrefix}@manticore.in`;
+                document.getElementById('emailDisplay').textContent = email;
+                document.getElementById('email').value = email;
+                
+                // Update org chart
+                document.getElementById('orgChartName').textContent = userName;
+                document.getElementById('orgChartEmail').textContent = email;
             }
         });
         
@@ -2036,15 +2038,30 @@
             
             // Reset any open dropdowns
             document.getElementById('notificationsDropdown').classList.remove('active');
-            document.getElementById('helpDropdown').classList.remove('active');
             document.getElementById('userDropdown').classList.remove('active');
         }
         
-        document.getElementById('logoutButton').addEventListener('click', logout);
         document.getElementById('logoutMenuItem').addEventListener('click', logout);
         
-        // Show specific page and update sidebar active state
-        function showPage(pageId) {
+        // Show dashboard content by default
+        function showDashboard() {
+            // Hide all content pages
+            const contentPages = document.querySelectorAll('.content-page');
+            contentPages.forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show the dashboard content
+            document.querySelector('.dashboard-content').style.display = 'flex';
+            document.querySelector('.greeting-banner').style.display = 'block';
+        }
+        
+        // Show specific content page
+        function showContentPage(pageId) {
+            // Hide dashboard content
+            document.querySelector('.dashboard-content').style.display = 'none';
+            document.querySelector('.greeting-banner').style.display = 'none';
+            
             // Hide all content pages
             const contentPages = document.querySelectorAll('.content-page');
             contentPages.forEach(page => {
@@ -2053,94 +2070,42 @@
             
             // Show the selected page
             document.getElementById(pageId).style.display = 'block';
-            
-            // Update sidebar active state
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('data-page') === pageId.replace('Content', '')) {
-                    item.classList.add('active');
-                }
-            });
         }
         
-        // Initialize dashboard as the first visible page
-        window.addEventListener('DOMContentLoaded', function() {
-            showPage('dashboardContent');
-        });
-        
-        // Sidebar navigation - ensure all menu items work correctly
-        document.querySelectorAll('.menu-item[data-page]').forEach(item => {
+        // Quick action navigation
+        document.querySelectorAll('.quick-action-item[data-page]').forEach(item => {
             item.addEventListener('click', function() {
                 const page = this.getAttribute('data-page');
-                showPage(page + 'Content');
+                showContentPage(page + 'Content');
             });
         });
         
-        // Dashboard card navigation
-        document.getElementById('personalInfoCard').addEventListener('click', function() {
-            showPage('personalInfoContent');
-        });
-        
-        document.getElementById('contactInfoCard').addEventListener('click', function() {
-            showPage('contactInfoContent');
-        });
-        
+        // App card navigation
         document.getElementById('payslipsCard').addEventListener('click', function() {
-            showPage('payslipsContent');
+            showContentPage('payslipsContent');
         });
         
         document.getElementById('leaveRequestsCard').addEventListener('click', function() {
-            showPage('leaveManagementContent');
+            showContentPage('leaveManagementContent');
         });
         
-        document.getElementById('myTeamCard').addEventListener('click', function() {
-            showPage('orgChartContent');
-        });
-        
-        document.getElementById('bankInfoCard').addEventListener('click', function() {
-            alert('Bank information update functionality would be implemented here.');
+        document.getElementById('benefitsCard').addEventListener('click', function() {
+            showContentPage('benefitsContent');
         });
         
         // Back to Dashboard buttons
-        document.getElementById('backToDashboard').addEventListener('click', function() {
-            showPage('dashboardContent');
-        });
-        
-        document.getElementById('backToDashboardFromPersonal').addEventListener('click', function() {
-            showPage('dashboardContent');
-        });
-        
-        document.getElementById('backToDashboardFromPayslips').addEventListener('click', function() {
-            showPage('dashboardContent');
-        });
-        
-        document.getElementById('backToDashboardFromLeave').addEventListener('click', function() {
-            showPage('dashboardContent');
-        });
-        
-        document.getElementById('backToDashboardFromOrg').addEventListener('click', function() {
-            showPage('dashboardContent');
-        });
-        
-        document.getElementById('backToDashboardFromBenefits').addEventListener('click', function() {
-            showPage('dashboardContent');
-        });
+        document.getElementById('backToDashboard').addEventListener('click', showDashboard);
+        document.getElementById('backToDashboardFromPersonal').addEventListener('click', showDashboard);
+        document.getElementById('backToDashboardFromPayslips').addEventListener('click', showDashboard);
+        document.getElementById('backToDashboardFromLeave').addEventListener('click', showDashboard);
+        document.getElementById('backToDashboardFromOrg').addEventListener('click', showDashboard);
+        document.getElementById('backToDashboardFromBenefits').addEventListener('click', showDashboard);
         
         // Top navigation dropdowns
         document.getElementById('notificationsIcon').addEventListener('click', function(e) {
             e.stopPropagation();
             const dropdown = document.getElementById('notificationsDropdown');
             dropdown.classList.toggle('active');
-            document.getElementById('helpDropdown').classList.remove('active');
-            document.getElementById('userDropdown').classList.remove('active');
-        });
-        
-        document.getElementById('helpIcon').addEventListener('click', function(e) {
-            e.stopPropagation();
-            const dropdown = document.getElementById('helpDropdown');
-            dropdown.classList.toggle('active');
-            document.getElementById('notificationsDropdown').classList.remove('active');
             document.getElementById('userDropdown').classList.remove('active');
         });
         
@@ -2149,13 +2114,11 @@
             const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('active');
             document.getElementById('notificationsDropdown').classList.remove('active');
-            document.getElementById('helpDropdown').classList.remove('active');
         });
         
         // Close dropdowns when clicking elsewhere
         document.addEventListener('click', function() {
             document.getElementById('notificationsDropdown').classList.remove('active');
-            document.getElementById('helpDropdown').classList.remove('active');
             document.getElementById('userDropdown').classList.remove('active');
         });
         
@@ -2197,14 +2160,6 @@
             document.getElementById('viewContactInfo').style.display = 'block';
         });
         
-        // Help dropdown items
-        document.querySelectorAll('.help-item').forEach(item => {
-            item.addEventListener('click', function() {
-                alert('This would open the ' + this.querySelector('span').textContent + ' page.');
-                document.getElementById('helpDropdown').classList.remove('active');
-            });
-        });
-        
         // Notification dropdown items
         document.querySelectorAll('.dropdown-notification').forEach(notification => {
             notification.addEventListener('click', function() {
@@ -2222,11 +2177,19 @@
                 alert('Downloading salary slip for ' + period);
             });
         });
+        
+        // Tab navigation
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Hamburger menu
+        document.querySelector('.hamburger-menu').addEventListener('click', function() {
+            alert('Menu functionality would be implemented here.');
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'968d338be4a0837d',t:'MTc1NDEzMzc4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9693376726c031ed',t:'MTc1NDE5Njg2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
-<div class="menu-item active" data-page="dashboard">
-    <div class="menu-icon"><i class="fas fa-tachometer-alt"></i></div>
-    <div class="menu-text">Dashboard</div>
-</div>
