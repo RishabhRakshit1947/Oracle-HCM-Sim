@@ -2192,4 +2192,316 @@
         });
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9693376726c031ed',t:'MTc1NDE5Njg2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+// Directory Page Content HTML - Add this before the closing </body> tag
+const directoryPageHTML = `
+<div class="main-content content-page" id="directoryContent">
+    <div class="content-header">
+        <button class="back-button" id="backToDashboardFromDirectory">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        <div class="search-container" style="position: relative; flex: 1; max-width: 400px; margin-left: 20px;">
+            <input type="text" id="directorySearch" placeholder="Search employees..." style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; padding-left: 36px;">
+            <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-light);"></i>
+        </div>
+    </div>
+    
+    <h1 class="page-title">Employee Directory</h1>
+    <p class="page-subtitle">Browse and search for employees across the organization</p>
+    
+    <div class="info-card">
+        <div class="info-card-title">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span>All Employees</span>
+                <div class="directory-filters" style="display: flex; gap: 10px;">
+                    <select id="departmentFilter" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 14px;">
+                        <option value="">All Departments</option>
+                        <option value="HR">Human Resources</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                    <select id="locationFilter" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 14px;">
+                        <option value="">All Locations</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div id="directoryList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 20px;">
+            <!-- Directory entries will be populated here -->
+        </div>
+    </div>
+</div>
+`;
+
+// Add directory page HTML to the body
+document.body.insertAdjacentHTML('beforeend', directoryPageHTML);
+
+// Directory functionality
+(function() {
+    // Sample data for generating random employees
+    const firstNames = [
+        "Aarav", "Vivaan", "Aditya", "Vihaan", "Arjun", "Reyansh", "Ayaan", "Atharva", 
+        "Krishna", "Ishaan", "Shaurya", "Dhruv", "Kabir", "Anik", "Tejas", "Aryan", 
+        "Advik", "Rudra", "Arnav", "Yuvraj", "Aanya", "Aadhya", "Saanvi", "Ananya", 
+        "Pari", "Anika", "Navya", "Diya", "Riya", "Sara", "Kiara", "Myra", "Ishita", 
+        "Anvi", "Prisha", "Tara", "Siya", "Divya", "Amyra", "Anaya"
+    ];
+    
+    const lastNames = [
+        "Sharma", "Verma", "Patel", "Gupta", "Singh", "Kumar", "Shah", "Mehta", 
+        "Joshi", "Pandey", "Chakraborty", "Banerjee", "Mukherjee", "Chatterjee", "Das", 
+        "Nair", "Menon", "Iyer", "Rao", "Reddy", "Naidu", "Pillai", "Desai", "Patil", 
+        "Agarwal", "Kapoor", "Malhotra", "Khanna", "Bose", "Sen", "Dutta", "Roy"
+    ];
+    
+    const departments = ["Human Resources", "Information Technology", "Finance", "Marketing", "Sales", "Operations"];
+    const locations = ["Mumbai", "Bangalore", "Delhi", "Kolkata", "Chennai", "Hyderabad"];
+    const jobTitles = {
+        "Human Resources": ["HR Manager", "HR Specialist", "Recruiter", "Benefits Coordinator", "HR Director"],
+        "Information Technology": ["Software Engineer", "System Administrator", "IT Manager", "Data Analyst", "DevOps Engineer"],
+        "Finance": ["Financial Analyst", "Accountant", "Finance Manager", "Auditor", "Payroll Specialist"],
+        "Marketing": ["Marketing Manager", "Digital Marketing Specialist", "Brand Manager", "Content Writer", "SEO Specialist"],
+        "Sales": ["Sales Manager", "Sales Representative", "Account Executive", "Business Development Manager", "Sales Analyst"],
+        "Operations": ["Operations Manager", "Project Manager", "Business Analyst", "Quality Assurance Analyst", "Process Improvement Specialist"]
+    };
+    
+    // Generate a random set of employees
+    function generateEmployees(count = 20) {
+        const employees = [];
+        
+        for (let i = 0; i < count; i++) {
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const department = departments[Math.floor(Math.random() * departments.length)];
+            const location = locations[Math.floor(Math.random() * locations.length)];
+            const jobTitle = jobTitles[department][Math.floor(Math.random() * jobTitles[department].length)];
+            
+            const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@manticore.in`;
+            const initials = firstName.charAt(0) + lastName.charAt(0);
+            
+            employees.push({
+                firstName,
+                lastName,
+                fullName: `${firstName} ${lastName}`,
+                department,
+                location,
+                jobTitle,
+                email,
+                initials,
+                phone: `+91 ${Math.floor(Math.random() * 9000000000) + 1000000000}`
+            });
+        }
+        
+        return employees;
+    }
+    
+    // Store employees in session storage to persist during the session
+    function storeEmployees(employees) {
+        sessionStorage.setItem('directoryEmployees', JSON.stringify(employees));
+    }
+    
+    // Get employees from session storage
+    function getEmployees() {
+        const storedEmployees = sessionStorage.getItem('directoryEmployees');
+        if (storedEmployees) {
+            return JSON.parse(storedEmployees);
+        }
+        
+        // If no stored employees, generate new ones
+        const newEmployees = generateEmployees(32);
+        storeEmployees(newEmployees);
+        return newEmployees;
+    }
+    
+    // Render directory list
+    function renderDirectory(employees) {
+        const directoryList = document.getElementById('directoryList');
+        directoryList.innerHTML = '';
+        
+        if (employees.length === 0) {
+            directoryList.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-light);">No employees found matching your search criteria.</div>';
+            return;
+        }
+        
+        employees.forEach(employee => {
+            const card = document.createElement('div');
+            card.className = 'employee-card';
+            card.style.backgroundColor = 'white';
+            card.style.borderRadius = '8px';
+            card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
+            card.style.padding = '16px';
+            card.style.display = 'flex';
+            card.style.alignItems = 'center';
+            card.style.cursor = 'pointer';
+            
+            // Random background color for avatar
+            const colors = ['#4CAF50', '#2196F3', '#9C27B0', '#FF9800', '#F44336', '#009688'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            card.innerHTML = `
+                <div style="width: 48px; height: 48px; background-color: ${randomColor}; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 16px;">
+                    ${employee.initials}
+                </div>
+                <div>
+                    <div style="font-size: 16px; font-weight: 600; color: var(--text-dark);">${employee.fullName}</div>
+                    <div style="font-size: 14px; color: var(--text-medium);">${employee.jobTitle}</div>
+                    <div style="font-size: 12px; color: var(--text-light); margin-top: 4px;">${employee.department} | ${employee.location}</div>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => {
+                showEmployeeDetails(employee);
+            });
+            
+            directoryList.appendChild(card);
+        });
+    }
+    
+    // Show employee details modal
+    function showEmployeeDetails(employee) {
+        // Create modal HTML
+        const modalHTML = `
+            <div class="modal-overlay" id="employeeDetailModal" style="display: flex;">
+                <div class="modal" style="width: 90%; max-width: 500px;">
+                    <div class="modal-header">
+                        <div class="modal-title">Employee Details</div>
+                        <button class="modal-close" id="closeEmployeeDetailModal">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 64px; height: 64px; background-color: var(--manticore-teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 600; margin-right: 20px;">
+                                ${employee.initials}
+                            </div>
+                            <div>
+                                <div style="font-size: 20px; font-weight: 600; color: var(--text-dark);">${employee.fullName}</div>
+                                <div style="font-size: 16px; color: var(--text-medium);">${employee.jobTitle}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card" style="box-shadow: none; padding: 0;">
+                            <div class="info-row">
+                                <div class="info-label"><i class="fas fa-building"></i> Department</div>
+                                <div class="info-value">${employee.department}</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label"><i class="fas fa-map-marker-alt"></i> Location</div>
+                                <div class="info-value">${employee.location}</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label"><i class="fas fa-envelope"></i> Email</div>
+                                <div class="info-value">${employee.email}</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label"><i class="fas fa-phone"></i> Phone</div>
+                                <div class="info-value">${employee.phone}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="action-button" id="sendMessageBtn" style="margin-right: auto;">
+                            <i class="fas fa-envelope"></i> Send Message
+                        </button>
+                        <button class="cancel-button" id="closeDetailBtn">Close</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add modal to body
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        // Add event listeners
+        document.getElementById('closeEmployeeDetailModal').addEventListener('click', () => {
+            document.getElementById('employeeDetailModal').remove();
+        });
+        
+        document.getElementById('closeDetailBtn').addEventListener('click', () => {
+            document.getElementById('employeeDetailModal').remove();
+        });
+        
+        document.getElementById('sendMessageBtn').addEventListener('click', () => {
+            alert(`This would open a messaging interface to contact ${employee.fullName}.`);
+        });
+        
+        // Close when clicking outside
+        document.getElementById('employeeDetailModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('employeeDetailModal')) {
+                document.getElementById('employeeDetailModal').remove();
+            }
+        });
+    }
+    
+    // Filter directory
+    function filterDirectory() {
+        const searchTerm = document.getElementById('directorySearch').value.toLowerCase();
+        const departmentFilter = document.getElementById('departmentFilter').value;
+        const locationFilter = document.getElementById('locationFilter').value;
+        
+        const employees = getEmployees();
+        
+        const filteredEmployees = employees.filter(employee => {
+            // Search term filter
+            const matchesSearch = searchTerm === '' || 
+                employee.fullName.toLowerCase().includes(searchTerm) || 
+                employee.jobTitle.toLowerCase().includes(searchTerm) || 
+                employee.department.toLowerCase().includes(searchTerm);
+            
+            // Department filter
+            const matchesDepartment = departmentFilter === '' || 
+                employee.department === departments.find(d => d.includes(departmentFilter));
+            
+            // Location filter
+            const matchesLocation = locationFilter === '' || 
+                employee.location === locationFilter;
+            
+            return matchesSearch && matchesDepartment && matchesLocation;
+        });
+        
+        renderDirectory(filteredEmployees);
+    }
+    
+    // Initialize directory when the directory card is clicked
+    document.getElementById('directoryCard').addEventListener('click', function() {
+        showContentPage('directoryContent');
+        
+        // Generate new employees if this is the first time after login
+        if (!sessionStorage.getItem('directoryInitialized')) {
+            const newEmployees = generateEmployees(32);
+            storeEmployees(newEmployees);
+            sessionStorage.setItem('directoryInitialized', 'true');
+        }
+        
+        renderDirectory(getEmployees());
+    });
+    
+    // Back to dashboard button
+    document.getElementById('backToDashboardFromDirectory').addEventListener('click', showDashboard);
+    
+    // Search and filter functionality
+    document.getElementById('directorySearch').addEventListener('input', filterDirectory);
+    document.getElementById('departmentFilter').addEventListener('change', filterDirectory);
+    document.getElementById('locationFilter').addEventListener('change', filterDirectory);
+    
+    // Clear directory initialization flag on logout
+    const originalLogout = window.logout;
+    window.logout = function() {
+        sessionStorage.removeItem('directoryInitialized');
+        originalLogout();
+    };
+})();
 </html>
