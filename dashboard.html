@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manticore HCM Dashboard</title>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+    }
+
+    .navbar {
+      background-color: #2e2b29;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .navbar .icons i {
+      margin-left: 20px;
+      cursor: pointer;
+    }
+
+    .welcome {
+      background-color: #005b7f;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 1.8rem;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      padding: 10px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .tabs div {
+      margin: 0 15px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .tabs .active {
+      border-bottom: 3px solid #f80000;
+      font-weight: bold;
+    }
+
+    .main-content {
+      display: flex;
+      padding: 30px;
+      gap: 30px;
+    }
+
+    .quick-actions {
+      flex: 1;
+    }
+
+    .quick-actions h3 {
+      margin-bottom: 15px;
+    }
+
+    .quick-actions ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .quick-actions li {
+      background-color: #fff;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .apps {
+      flex: 2;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+    }
+
+    .app-tile {
+      background-color: #fff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">Manticore</div>
+    <div class="icons">
+      <i>🏠</i>
+      <i>🔔</i>
+      <i>👤</i>
+    </div>
+  </div>
+
+  <div class="welcome">
+    Good morning, <span id="username">User</span>!
+  </div>
+
+  <div class="tabs">
+    <div class="active">Me</div>
+    <div>My Team</div>
+    <div>Workspace</div>
+    <div>Partner Management</div>
+    <div>Sales</div>
+  </div>
+
+  <div class="main-content">
+    <div class="quick-actions">
+      <h3>Quick Actions</h3>
+      <ul>
+        <li>Personal Details</li>
+        <li>Document Records</li>
+        <li>Identification Info</li>
+        <li>Contact Info</li>
+        <li>Family and Emergency Contacts</li>
+        <li>Organization Chart</li>
+      </ul>
+    </div>
+    <div class="apps">
+      <div class="app-tile">Directory</div>
+      <div class="app-tile">Connections</div>
+      <div class="app-tile">Journeys</div>
+      <div class="app-tile">Pay</div>
+      <div class="app-tile">Time & Absences</div>
+      <div class="app-tile">Performance</div>
+      <div class="app-tile">Rewards</div>
+      <div class="app-tile">Learning</div>
+    </div>
+  </div>
+
+  <script>
+    const username = sessionStorage.getItem('username') || 'User';
+    document.getElementById('username').textContent = username;
+  </script>
+
+</body>
+</html>
