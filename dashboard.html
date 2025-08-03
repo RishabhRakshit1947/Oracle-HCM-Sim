@@ -1,156 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Manticore HCM Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
-      font-family: 'Open Sans', sans-serif;
       margin: 0;
-      background-color: #f4f6f8;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background-color: #f5f6f8;
     }
 
-    .navbar {
-      background-color: #2e2b29;
+    .topbar {
+      background-color: #2d2a2a;
       color: white;
-      padding: 15px 30px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
     }
 
-    .navbar .logo {
-      font-size: 1.5rem;
+    .topbar .logo {
+      font-size: 1.2em;
       font-weight: bold;
     }
 
-    .navbar .icons i {
+    .topbar .icons i {
       margin-left: 20px;
       cursor: pointer;
     }
 
-    .welcome {
-      background-color: #005b7f;
+    .greeting {
+      background-color: #005b82;
       color: white;
-      text-align: center;
-      padding: 30px 10px;
-      font-size: 1.8rem;
+      padding: 30px 20px;
+      font-size: 1.5em;
+      font-weight: 500;
     }
 
     .tabs {
       display: flex;
-      justify-content: center;
-      background: #fff;
-      padding: 10px 0;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      padding: 12px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
     }
 
-    .tabs div {
-      margin: 0 15px;
-      padding: 8px 10px;
+    .tab {
+      margin-right: 30px;
+      font-size: 15px;
       cursor: pointer;
+      padding-bottom: 4px;
     }
 
-    .tabs .active {
-      border-bottom: 3px solid #f80000;
+    .tab.active {
+      border-bottom: 3px solid red;
       font-weight: bold;
     }
 
-    .main-content {
+    .container {
       display: flex;
-      padding: 30px;
-      gap: 30px;
+      flex-wrap: wrap;
+      padding: 20px;
     }
 
-    .quick-actions {
+    .quick-actions, .apps {
       flex: 1;
+      min-width: 280px;
+      margin: 20px;
     }
 
-    .quick-actions h3 {
-      margin-bottom: 15px;
+    .quick-actions h3, .apps h3 {
+      font-size: 18px;
+      margin-bottom: 16px;
     }
 
-    .quick-actions ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .quick-actions li {
-      background-color: #fff;
+    .quick-actions button {
+      display: block;
+      width: 100%;
+      padding: 12px;
       margin-bottom: 10px;
-      padding: 10px;
+      font-size: 14px;
+      text-align: left;
+      background-color: #fff;
+      border: 1px solid #ccc;
       border-radius: 4px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
 
-    .apps {
-      flex: 2;
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 15px;
+      gap: 20px;
     }
 
-    .app-tile {
-      background-color: #fff;
-      padding: 20px;
+    .tile {
+      background-color: #ffffff;
+      padding: 24px 16px;
       text-align: center;
-      border-radius: 6px;
+      border-radius: 8px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .tile i {
+      font-size: 20px;
+      margin-bottom: 8px;
+      display: block;
     }
   </style>
 </head>
 <body>
-
-  <div class="navbar">
+  <div class="topbar">
     <div class="logo">Manticore</div>
     <div class="icons">
-      <i>🏠</i>
-      <i>🔔</i>
-      <i>👤</i>
+      <i class="fas fa-home"></i>
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-user-circle"></i>
     </div>
   </div>
 
-  <div class="welcome">
-    Good morning, <span id="username">User</span>!
-  </div>
+  <div class="greeting" id="greeting">Good morning!</div>
 
   <div class="tabs">
-    <div class="active">Me</div>
-    <div>My Team</div>
-    <div>Workspace</div>
-    <div>Partner Management</div>
-    <div>Sales</div>
+    <div class="tab active">Me</div>
+    <div class="tab">My Team</div>
+    <div class="tab">Workspace</div>
+    <div class="tab">Partner Management</div>
+    <div class="tab">Sales</div>
   </div>
 
-  <div class="main-content">
+  <div class="container">
     <div class="quick-actions">
       <h3>Quick Actions</h3>
-      <ul>
-        <li>Personal Details</li>
-        <li>Document Records</li>
-        <li>Identification Info</li>
-        <li>Contact Info</li>
-        <li>Family and Emergency Contacts</li>
-        <li>Organization Chart</li>
-      </ul>
+      <button>Personal Details</button>
+      <button>Document Records</button>
+      <button>Identification Info</button>
+      <button>Contact Info</button>
+      <button>Family and Emergency Contacts</button>
+      <button>Organization Chart</button>
     </div>
     <div class="apps">
-      <div class="app-tile">Directory</div>
-      <div class="app-tile">Connections</div>
-      <div class="app-tile">Journeys</div>
-      <div class="app-tile">Pay</div>
-      <div class="app-tile">Time & Absences</div>
-      <div class="app-tile">Performance</div>
-      <div class="app-tile">Rewards</div>
-      <div class="app-tile">Learning</div>
+      <h3>Apps</h3>
+      <div class="grid">
+        <div class="tile"><i class="fas fa-sitemap"></i>Directory</div>
+        <div class="tile"><i class="fas fa-user-friends"></i>Connections</div>
+        <div class="tile"><i class="fas fa-map-signs"></i>Journeys</div>
+        <div class="tile"><i class="fas fa-money-bill"></i>Pay</div>
+        <div class="tile"><i class="fas fa-clock"></i>Time & Absences</div>
+        <div class="tile"><i class="fas fa-chart-line"></i>Performance</div>
+        <div class="tile"><i class="fas fa-gift"></i>Rewards</div>
+        <div class="tile"><i class="fas fa-book-reader"></i>Learning</div>
+      </div>
     </div>
   </div>
 
   <script>
-    const username = sessionStorage.getItem('username') || 'User';
-    document.getElementById('username').textContent = username;
+    const username = sessionStorage.getItem("username") || "User";
+    document.getElementById("greeting").innerText = `Good morning, ${username}!`;
   </script>
-
 </body>
 </html>
