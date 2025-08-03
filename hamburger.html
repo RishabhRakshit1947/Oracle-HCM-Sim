@@ -2,13 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manticore HCM Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manticore Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     body {
       margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f0f0f0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #ff6600;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .menu-title {
+      font-size: 20px;
+      font-weight: 600;
     }
 
     .overlay {
@@ -17,134 +38,117 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.4);
-      display: flex;
-      justify-content: flex-start;
-      align-items: stretch;
-      z-index: 999;
-    }
-
-    .menu-panel {
-      background-color: #ffffff;
-      width: 360px;
-      max-width: 90vw;
-      padding: 20px;
-      overflow-y: auto;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .menu-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .menu-header h2 {
-      font-size: 20px;
-      margin: 0;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .module {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-    }
-
-    .module h3 {
-      font-size: 16px;
-      margin: 0;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .sub-items {
+      background: rgba(0, 0, 0, 0.3);
       display: none;
-      margin-top: 10px;
-      padding-left: 10px;
+      z-index: 9;
     }
 
-    .sub-items a {
+    .overlay.show {
       display: block;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 260px;
+      height: 100%;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .side-menu.show {
+      left: 0;
+    }
+
+    .side-menu h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #ff6600;
+    }
+
+    .side-menu ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .side-menu ul li {
+      padding: 10px 5px;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+
+    .side-menu ul li:hover {
+      background-color: #f2f2f2;
+    }
+
+    .back-button {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      border-radius: 4px;
       text-decoration: none;
-      color: #444;
-      margin-bottom: 5px;
-      font-size: 14px;
     }
 
-    .module.open .sub-items {
-      display: block;
+    .back-button:hover {
+      background-color: #e65c00;
     }
   </style>
 </head>
 <body>
-  <div class="overlay" id="menuOverlay">
-    <div class="menu-panel">
-      <div class="menu-header">
-        <h2>Menu</h2>
-        <button class="close-btn" onclick="closeMenu()">&times;</button>
-      </div>
 
-      <div class="module" onclick="toggleModule(this)">
-        <h3>Procurement <span>˅</span></h3>
-        <div class="sub-items">
-          <a href="#">Purchase Orders</a>
-          <a href="#">Suppliers</a>
-        </div>
-      </div>
-
-      <div class="module" onclick="toggleModule(this)">
-        <h3>My Client Groups <span>˅</span></h3>
-        <div class="sub-items">
-          <a href="#">My Team</a>
-          <a href="#">Team Performance</a>
-        </div>
-      </div>
-
-      <div class="module" onclick="toggleModule(this)">
-        <h3>Help Desk <span>˅</span></h3>
-        <div class="sub-items">
-          <a href="#">Raise Ticket</a>
-          <a href="#">View Cases</a>
-        </div>
-      </div>
-
-      <div class="module" onclick="toggleModule(this)">
-        <h3>Benefits Administration <span>˅</span></h3>
-        <div class="sub-items">
-          <a href="#">Enroll</a>
-          <a href="#">Claims</a>
-        </div>
-      </div>
-
-      <div class="module" onclick="toggleModule(this)">
-        <h3>General Accounting <span>˅</span></h3>
-        <div class="sub-items">
-          <a href="#">Journal Entries</a>
-          <a href="#">Reports</a>
-        </div>
-      </div>
-
-      <!-- Add more modules similarly -->
+  <header>
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
     </div>
+    <div class="menu-title">Manticore Applications</div>
+    <div style="width: 24px;"></div> <!-- Empty placeholder to balance flex -->
+  </header>
+
+  <!-- Side Menu -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+  <div class="side-menu" id="sideMenu">
+    <h3>Menu</h3>
+    <ul>
+      <li>Procurement</li>
+      <li>My Client Groups</li>
+      <li>Help Desk</li>
+      <li>Product Management</li>
+      <li>Benefits Administration</li>
+      <li>Risk Management</li>
+      <li>Subscription Management</li>
+      <li>Contract Management</li>
+      <li>Order Management</li>
+      <li>Supply Chain Execution</li>
+      <li>Receivables</li>
+      <li>Supply Chain Planning</li>
+      <li>General Accounting</li>
+      <li>Intercompany Accounting</li>
+      <li>Cash Management</li>
+      <li>Fixed Assets</li>
+      <li>Lease Accounting</li>
+      <li>Academics</li>
+    </ul>
+    <a href="dashboard.html" class="back-button">← Back to Dashboard</a>
   </div>
 
   <script>
-    function closeMenu() {
-      window.location.href = 'dashboard.html';
-    }
-
-    function toggleModule(element) {
-      element.classList.toggle('open');
+    function toggleMenu() {
+      document.getElementById('sideMenu').classList.toggle('show');
+      document.getElementById('overlay').classList.toggle('show');
     }
   </script>
+
 </body>
 </html>
