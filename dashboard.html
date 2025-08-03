@@ -3,163 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Manticore HCM Dashboard</title>
+  <title>Manticore Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f6f6f6;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f7f7f7;
+      color: #111;
     }
 
     header {
-      background-color: #f66300;
-      color: white;
+      background-color: #ff6600;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 20px;
     }
 
     .logo {
-      font-size: 1.5em;
+      color: white;
+      font-size: 24px;
       font-weight: bold;
     }
 
-    .hamburger {
-      font-size: 1.4em;
-      cursor: pointer;
-    }
-
-    .top-icons {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
     .top-icons i {
-      font-size: 1.2em;
+      color: white;
+      margin-left: 20px;
+      font-size: 18px;
       cursor: pointer;
     }
 
     .greeting-bar {
-      background-color: #ff8c42;
+      background-color: #ffa64d;
       padding: 20px;
       color: white;
-      font-size: 1.5em;
-      font-weight: bold;
+      font-size: 22px;
+      font-weight: 600;
     }
 
     nav {
-      display: flex;
-      gap: 30px;
-      padding: 10px 20px;
       background-color: white;
+      padding: 10px 20px;
+      display: flex;
       border-bottom: 1px solid #ddd;
     }
 
     nav a {
+      margin-right: 20px;
       text-decoration: none;
       color: black;
       font-weight: 500;
     }
 
     nav a.active {
-      border-bottom: 3px solid #f66300;
+      border-bottom: 3px solid #ff6600;
       padding-bottom: 5px;
     }
 
     .container {
       display: flex;
-      padding: 20px;
+      padding: 30px 20px;
+      gap: 40px;
+      flex-wrap: wrap;
     }
 
-    .quick-actions {
+    .column {
       flex: 1;
+      min-width: 300px;
     }
 
-    .quick-actions h2 {
-      margin-bottom: 15px;
+    .column h2 {
+      margin-bottom: 20px;
     }
 
-    .quick-actions button {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
+    .quick-action, .app-tile {
       background: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .apps {
-      flex: 2;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-left: 40px;
-    }
-
-    .apps h2 {
-      grid-column: span 3;
-    }
-
-    .app-tile {
-      background-color: white;
-      border: 1px solid #ddd;
+      padding: 15px 20px;
       border-radius: 8px;
-      padding: 30px;
-      text-align: center;
-      font-weight: 500;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
       cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .quick-action:hover, .app-tile:hover {
+      background-color: #ffe0cc;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
     }
 
     .app-tile i {
-      font-size: 2em;
-      margin-bottom: 10px;
-      color: #f66300;
+      color: #ff6600;
+      font-size: 22px;
+      margin-bottom: 8px;
     }
 
-    /* Side Menu */
+    .app-tile {
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Hamburger menu */
+    .hamburger {
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+    }
+
     .side-menu {
       position: fixed;
       top: 0;
-      left: -250px;
-      height: 100%;
+      left: -300px;
       width: 250px;
-      background-color: white;
-      border-right: 1px solid #ddd;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      z-index: 1000;
       padding: 20px;
-      overflow-y: auto;
-      transition: left 0.3s ease;
-      z-index: 999;
+      transition: 0.3s ease-in-out;
     }
 
-    .side-menu.open {
+    .side-menu.show {
       left: 0;
     }
 
     .side-menu h3 {
-      margin-top: 0;
-      color: #333;
+      margin-bottom: 20px;
+      color: #ff6600;
     }
 
     .side-menu ul {
       list-style: none;
-      padding-left: 0;
     }
 
     .side-menu ul li {
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
+      margin: 15px 0;
+      font-weight: 500;
       cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.3);
+      display: none;
+      z-index: 999;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
+
 <body>
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+  <div class="side-menu" id="sideMenu">
+    <h3>Menu</h3>
+    <ul>
+      <li>Procurement</li>
+      <li>My Client Groups</li>
+      <li>Help Desk</li>
+      <li>Product Management</li>
+      <li>Benefits Admin</li>
+      <li>Risk Management</li>
+      <li>Order Management</li>
+      <li>General Accounting</li>
+      <li>Cash Management</li>
+    </ul>
+  </div>
+
   <header>
     <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     <div class="logo">Manticore</div>
@@ -170,10 +202,10 @@
     </div>
   </header>
 
-  <div class="greeting-bar" id="greeting">Good morning!</div>
+  <div class="greeting-bar" id="greetingText">Good morning!</div>
 
   <nav>
-    <a href="#" class="active">Me</a>
+    <a class="active" href="#">Me</a>
     <a href="#">My Team</a>
     <a href="#">Workspace</a>
     <a href="#">Partner Management</a>
@@ -181,64 +213,42 @@
   </nav>
 
   <div class="container">
-    <div class="quick-actions">
+    <div class="column">
       <h2>Quick Actions</h2>
-      <button>Personal Details</button>
-      <button>Document Records</button>
-      <button>Identification Info</button>
-      <button>Contact Info</button>
-      <button>Family and Emergency Contacts</button>
-      <button>Organization Chart</button>
+      <div class="quick-action">Personal Details</div>
+      <div class="quick-action">Document Records</div>
+      <div class="quick-action">Identification Info</div>
+      <div class="quick-action">Contact Info</div>
+      <div class="quick-action">Family and Emergency Contacts</div>
+      <div class="quick-action">Organization Chart</div>
     </div>
-
-    <div class="apps">
+    <div class="column">
       <h2>Apps</h2>
-      <div class="app-tile"><i class="fas fa-sitemap"></i><br>Directory</div>
-      <div class="app-tile"><i class="fas fa-user-friends"></i><br>Connections</div>
-      <div class="app-tile"><i class="fas fa-map-signs"></i><br>Journeys</div>
-      <div class="app-tile"><i class="fas fa-money-bill-wave"></i><br>Pay</div>
-      <div class="app-tile"><i class="fas fa-clock"></i><br>Time & Absences</div>
-      <div class="app-tile"><i class="fas fa-chart-line"></i><br>Performance</div>
-      <div class="app-tile"><i class="fas fa-gift"></i><br>Rewards</div>
-      <div class="app-tile"><i class="fas fa-book"></i><br>Learning</div>
+      <div class="app-grid">
+        <div class="app-tile"><i class="fas fa-sitemap"></i><br>Directory</div>
+        <div class="app-tile"><i class="fas fa-user-friends"></i><br>Connections</div>
+        <div class="app-tile"><i class="fas fa-route"></i><br>Journeys</div>
+        <div class="app-tile"><i class="fas fa-money-bill-wave"></i><br>Pay</div>
+        <div class="app-tile"><i class="fas fa-clock"></i><br>Time & Absences</div>
+        <div class="app-tile"><i class="fas fa-chart-line"></i><br>Performance</div>
+        <div class="app-tile"><i class="fas fa-gift"></i><br>Rewards</div>
+        <div class="app-tile"><i class="fas fa-book-reader"></i><br>Learning</div>
+      </div>
     </div>
-  </div>
-
-  <div class="side-menu" id="sideMenu">
-    <h3>Menu</h3>
-    <ul>
-      <li>Procurement</li>
-      <li>My Client Groups</li>
-      <li>Help Desk</li>
-      <li>Product Management</li>
-      <li>Benefits Administration</li>
-      <li>Risk Management</li>
-      <li>Subscription Management</li>
-      <li>Contract Management</li>
-      <li>Order Management</li>
-      <li>Supply Chain Execution</li>
-      <li>Receivables</li>
-      <li>Supply Chain Planning</li>
-      <li>General Accounting</li>
-      <li>Intercompany Accounting</li>
-      <li>Cash Management</li>
-      <li>Fixed Assets</li>
-      <li>Lease Accounting</li>
-      <li>Academics</li>
-    </ul>
   </div>
 
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById('sideMenu');
-      menu.classList.toggle('open');
+    // Pull username from URL params and show
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get('username');
+    if (username) {
+      document.getElementById("greetingText").textContent = `Good morning, ${username}!`;
     }
 
-    // Set greeting from login username
-    const params = new URLSearchParams(window.location.search);
-    const user = params.get("user");
-    if (user) {
-      document.getElementById("greeting").textContent = "Good morning, " + user + "!";
+    // Hamburger toggle
+    function toggleMenu() {
+      document.getElementById("sideMenu").classList.toggle("show");
+      document.getElementById("overlay").classList.toggle("show");
     }
   </script>
 </body>
