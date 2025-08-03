@@ -1,169 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manticore HCM Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
-      background-color: #f5f6f8;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manticore Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
 
-    .topbar {
-      background-color: #2d2a2a;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-    }
+        .navbar {
+            background-color: #d35400; /* Oracle orange */
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    .topbar .logo {
-      font-size: 1.2em;
-      font-weight: bold;
-    }
+        .navbar .brand {
+            font-size: 22px;
+            font-weight: bold;
+        }
 
-    .topbar .icons i {
-      margin-left: 20px;
-      cursor: pointer;
-    }
+        .navbar-icons i {
+            margin-left: 20px;
+            cursor: pointer;
+        }
 
-    .greeting {
-      background-color: #005b82;
-      color: white;
-      padding: 30px 20px;
-      font-size: 1.5em;
-      font-weight: 500;
-    }
+        .welcome {
+            background-color: #f39c12;
+            padding: 40px 20px;
+            color: white;
+            font-size: 28px;
+        }
 
-    .tabs {
-      display: flex;
-      padding: 12px 20px;
-      background-color: #ffffff;
-      border-bottom: 1px solid #ddd;
-    }
+        .tabs {
+            display: flex;
+            background-color: white;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+        }
 
-    .tab {
-      margin-right: 30px;
-      font-size: 15px;
-      cursor: pointer;
-      padding-bottom: 4px;
-    }
+        .tabs div {
+            margin-right: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            padding-bottom: 5px;
+        }
 
-    .tab.active {
-      border-bottom: 3px solid red;
-      font-weight: bold;
-    }
+        .tabs div.active {
+            border-bottom: 3px solid #e67e22;
+            color: #e67e22;
+        }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 20px;
-    }
+        .container {
+            display: flex;
+            padding: 30px;
+            flex-wrap: wrap;
+        }
 
-    .quick-actions, .apps {
-      flex: 1;
-      min-width: 280px;
-      margin: 20px;
-    }
+        .quick-actions, .apps {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 30px;
+        }
 
-    .quick-actions h3, .apps h3 {
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
+        .quick-actions h2, .apps h2 {
+            margin-bottom: 20px;
+        }
 
-    .quick-actions button {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      text-align: left;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+        .quick-actions button {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 16px;
+        }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 20px;
-    }
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 20px;
+        }
 
-    .tile {
-      background-color: #ffffff;
-      padding: 24px 16px;
-      text-align: center;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
+        .app-tile {
+            background-color: white;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
 
-    .tile:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
+        .app-tile i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
 
-    .tile i {
-      font-size: 20px;
-      margin-bottom: 8px;
-      display: block;
-    }
-  </style>
+        #hamburger-menu {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            height: 100%;
+            width: 300px;
+            background-color: #fff;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            z-index: 999;
+        }
+
+        #hamburger-menu.open {
+            left: 0;
+        }
+
+        #hamburger-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #hamburger-menu li {
+            border-bottom: 1px solid #eee;
+        }
+
+        #hamburger-menu li button {
+            width: 100%;
+            text-align: left;
+            padding: 15px;
+            border: none;
+            background-color: white;
+            font-size: 16px;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 998;
+        }
+
+        #overlay.active {
+            display: block;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="topbar">
-    <div class="logo">Manticore</div>
-    <div class="icons">
-      <i class="fas fa-home"></i>
-      <i class="fas fa-bell"></i>
-      <i class="fas fa-user-circle"></i>
+    <div class="navbar">
+        <div class="brand"><i class="fas fa-bars" id="hamburger-icon"></i> Manticore</div>
+        <div class="navbar-icons">
+            <i class="fas fa-home"></i>
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-user-circle"></i>
+        </div>
     </div>
-  </div>
 
-  <div class="greeting" id="greeting">Good morning!</div>
-
-  <div class="tabs">
-    <div class="tab active">Me</div>
-    <div class="tab">My Team</div>
-    <div class="tab">Workspace</div>
-    <div class="tab">Partner Management</div>
-    <div class="tab">Sales</div>
-  </div>
-
-  <div class="container">
-    <div class="quick-actions">
-      <h3>Quick Actions</h3>
-      <button>Personal Details</button>
-      <button>Document Records</button>
-      <button>Identification Info</button>
-      <button>Contact Info</button>
-      <button>Family and Emergency Contacts</button>
-      <button>Organization Chart</button>
+    <div class="welcome" id="greeting">
+        Good morning!
     </div>
-    <div class="apps">
-      <h3>Apps</h3>
-      <div class="grid">
-        <div class="tile"><i class="fas fa-sitemap"></i>Directory</div>
-        <div class="tile"><i class="fas fa-user-friends"></i>Connections</div>
-        <div class="tile"><i class="fas fa-map-signs"></i>Journeys</div>
-        <div class="tile"><i class="fas fa-money-bill"></i>Pay</div>
-        <div class="tile"><i class="fas fa-clock"></i>Time & Absences</div>
-        <div class="tile"><i class="fas fa-chart-line"></i>Performance</div>
-        <div class="tile"><i class="fas fa-gift"></i>Rewards</div>
-        <div class="tile"><i class="fas fa-book-reader"></i>Learning</div>
-      </div>
-    </div>
-  </div>
 
-  <script>
-    const username = sessionStorage.getItem("username") || "User";
-    document.getElementById("greeting").innerText = `Good morning, ${username}!`;
-  </script>
+    <div class="tabs">
+        <div class="active">Me</div>
+        <div>My Team</div>
+        <div>Workspace</div>
+        <div>Partner Management</div>
+        <div>Sales</div>
+    </div>
+
+    <div class="container">
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <button>Personal Details</button>
+            <button>Document Records</button>
+            <button>Identification Info</button>
+            <button>Contact Info</button>
+            <button>Family and Emergency Contacts</button>
+            <button>Organization Chart</button>
+        </div>
+
+        <div class="apps">
+            <h2>Apps</h2>
+            <div class="apps-grid">
+                <div class="app-tile"><i class="fas fa-sitemap"></i>Directory</div>
+                <div class="app-tile"><i class="fas fa-users"></i>Connections</div>
+                <div class="app-tile"><i class="fas fa-road"></i>Journeys</div>
+                <div class="app-tile"><i class="fas fa-university"></i>Pay</div>
+                <div class="app-tile"><i class="fas fa-clock"></i>Time & Absences</div>
+                <div class="app-tile"><i class="fas fa-chart-line"></i>Performance</div>
+                <div class="app-tile"><i class="fas fa-gift"></i>Rewards</div>
+                <div class="app-tile"><i class="fas fa-book"></i>Learning</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="hamburger-menu">
+        <ul>
+            <li><button>Procurement</button></li>
+            <li><button>My Client Groups</button></li>
+            <li><button>Help Desk</button></li>
+            <li><button>Product Management</button></li>
+            <li><button>Benefits Administration</button></li>
+            <li><button>Risk Management</button></li>
+            <li><button>Subscription Management</button></li>
+            <li><button>Contract Management</button></li>
+            <li><button>Order Management</button></li>
+            <li><button>Supply Chain Execution</button></li>
+            <li><button>Receivables</button></li>
+            <li><button>Supply Chain Planning</button></li>
+            <li><button>General Accounting</button></li>
+            <li><button>Intercompany Accounting</button></li>
+            <li><button>Cash Management</button></li>
+            <li><button>Fixed Assets</button></li>
+            <li><button>Lease Accounting</button></li>
+            <li><button>Academics</button></li>
+        </ul>
+    </div>
+
+    <div id="overlay"></div>
+
+    <script>
+        const username = localStorage.getItem("username") || "User";
+        document.getElementById("greeting").textContent = `Good morning, ${username}!`;
+
+        const hamburgerIcon = document.getElementById("hamburger-icon");
+        const hamburgerMenu = document.getElementById("hamburger-menu");
+        const overlay = document.getElementById("overlay");
+
+        hamburgerIcon.addEventListener("click", () => {
+            hamburgerMenu.classList.add("open");
+            overlay.classList.add("active");
+        });
+
+        overlay.addEventListener("click", () => {
+            hamburgerMenu.classList.remove("open");
+            overlay.classList.remove("active");
+        });
+    </script>
 </body>
+
 </html>
